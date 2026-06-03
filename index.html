@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroForte | Sustentabilidade e Alta Produtividade</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <header class="header-principal">
+        <div class="navbar container">
+            <a href="#inicio" class="logo" aria-label="AgroForte Home">
+                <i class="fa-solid fa-leaf"></i> <span>Agro<span class="destaque-logo">Forte</span></span>
+            </a>
+            <nav id="navegacao">
+                <ul class="nav-links">
+                    <li><a href="#inicio"><i class="fa-solid fa-house"></i> Início</a></li>
+                    <li><a href="#pilares"><i class="fa-solid fa-layer-group"></i> Pilares</a></li>
+                    <li><a href="#simulador"><i class="fa-solid fa-calculator"></i> Simulador</a></li>
+                    <li><a href="#contato"><i class="fa-solid fa-envelope"></i> Contato</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" id="mobile-menu" aria-label="Abrir menu de navegação">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content container">
+                <h1>O Futuro da Agricultura é Sustentável</h1>
+                <p>Unimos alta produtividade no campo, tecnologia de ponta e preservação ambiental para transformar o agronegócio.</p>
+                <div class="hero-botoes">
+                    <a href="#pilares" class="btn-principal">Descobrir Pilares</a>
+                    <a href="#simulador" class="btn-secundario">Testar Simulador</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="pilares" class="pilares container">
+            <div class="cabecalho-secao">
+                <span class="subtitulo">Como Atuamos</span>
+                <h2 class="titulo-secao">Nossos Pilares Tecnológicos</h2>
+            </div>
+            <div class="cards-grid">
+                <article class="card">
+                    <div class="card-icone"><i class="fa-solid fa-seedling"></i></div>
+                    <h3>Produção Consciente</h3>
+                    <p>Uso inteligente do solo, monitoramento digital e rotação de culturas para garantir a longevidade da terra com alta eficiência.</p>
+                </article>
+                <article class="card">
+                    <div class="card-icone"><i class="fa-solid fa-droplet"></i></div>
+                    <h3>Gestão Hídrica</h3>
+                    <p>Sistemas automatizados de irrigação por gotejamento e captação pluvial que reduzem o desperdício de água em até 40%.</p>
+                </article>
+                <article class="card">
+                    <div class="card-icone"><i class="fa-solid fa-solar-panel"></i></div>
+                    <h3>Energia Limpa</h3>
+                    <p>Matriz energética baseada em fazendas solares e biomassa, neutralizando a pegada de carbono da produção.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="simulador" class="simulador-section">
+            <div class="container layout-simulador">
+                <div class="simulador-texto">
+                    <h2 class="titulo-secao">Simulador de Impacto Verde</h2>
+                    <p>Insira a área da sua propriedade rural e descubra o impacto positivo instantâneo da transição para práticas sustentáveis.</p>
+                </div>
+                
+                <div class="simulador-box">
+                    <div class="input-group">
+                        <label for="hectares">Área da Propriedade (Hectares):</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="hectares" value="100" min="1"
