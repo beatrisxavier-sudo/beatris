@@ -1,92 +1,20 @@
-/* Configurações Gerais e Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    scroll-behavior: smooth;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- Lógica do Simulador Sustentável ---
+    const btnCalcular = document.getElementById('btn-calcular');
+    const inputHectares = document.getElementById('hectares');
+    const resultadoBox = document.getElementById('resultado');
+    
+    const aguaSpan = document.getElementById('agua-economizada');
+    const co2Span = document.getElementById('co2-reduzido');
 
-:root {
-    --cor-primaria: #2e7d32;     /* Verde Agro */
-    --cor-secundaria: #81c784;   /* Verde Claro */
-    --cor-escura: #1b5e20;
-    --cinza-claro: #f4f7f4;
-    --texto-escuro: #212529;     /* Um pouco mais suave que o #333 */
-    --branco: #ffffff;
-    --sombra-suave: 0 4px 20px rgba(0, 0, 0, 0.08);
-    --transicao: all 0.3s ease;
-}
+    // Fatores de conversão (boas práticas: centralizar constantes fora da função)
+    const LITROS_AGUA_POR_HECTARE = 12000;
+    const KG_CO2_POR_HECTARE = 450;
 
-body {
-    color: var(--texto-escuro);
-    background-color: var(--branco);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-}
+    const calcularImpacto = () => {
+        const hectares = parseFloat(inputHectares.value);
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-}
-
-.text-center { text-align: center; }
-
-.titulo-secao {
-    font-size: 2.5rem;
-    color: var(--cor-escura);
-    margin-bottom: 48px;
-    text-align: center;
-}
-
-.titulo-secao::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background-color: var(--cor-secundaria);
-    margin: 12px auto 0 auto;
-    border-radius: 2px;
-}
-
-/* Header & Navbar */
-header {
-    background-color: rgba(255, 255, 255, 0.95); /* Efeito semi-transparente moderno */
-    backdrop-filter: blur(10px);               /* Desfoque de fundo */
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 0; /* Alinhado usando o container interno */
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--cor-primaria);
-    letter-spacing: -0.5px;
-}
-
-.logo span span {
-    color: var(--texto-escuro);
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 24px; /* Substitui margens individuais por gap */
-}
-
-.nav-links li a {
-    color: var(--texto-escuro);
-    text-decoration: none;
-    font-weight: 500;
-    transition: var(--transicao
+        if (isNaN(hectares) || hectares <= 0) {
+            alert('Por favor, insira um número válido de hectares.');
+            resultadoBox.classList.add('hidden');
