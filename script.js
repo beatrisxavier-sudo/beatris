@@ -1,47 +1,140 @@
+// ==========================================
+// AgroForte - Script Principal
+// Projeto Agrinho 2026
+// ==========================================
+
 document.addEventListener('DOMContentLoaded', () => {
+    initMenuMobile();
+    initSimuladorProdutividade();
+    initSmoothScroll();
+    initFormContato();
+});
+
+// ==========================================
+// Menu Mobile
+// ==========================================
+function initMenuMobile() {
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
     
-    // --- Lógica do Simulador Sustentável ---
-    const btnCalcular = document.getElementById('btn-calcular');
-    const inputHectares = document.getElementById('hectares');
-    const resultadoBox = document.getElementById('resultado');
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
+    }
+}
+
+// ==========================================
+// Simulador de Produtividade
+// ==========================================
+function initSimuladorProdutividade() {
+    const form = document.getElementById('form-simulador');
+    const resultado = document.getElementById('resultado');
+    const textoProducao = document.getElementById('texto-producao');
     
-    const aguaSpan = document.getElementById('agua-economizada');
-    const co2Span = document.getElementById('co2-reduzido');
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Pegar valores do formulário
+            const area = parseFloat(document.getElementById('area').value);
+            const cultura = parseFloat(document.getElementById('cultura').value);
+            const pratica = parseFloat(document.getElementById('pratica').value);
+            
+            // Validar valores
+            if (isNaN(area) || area <= 0) {
+                alert('Por favor, insira uma área válida!');
+                return;
+            }
+            
+            // Calcular produção base
+            const producaoBase = area * cultura;
+            
+            // Calcular aumento com prática sustentável
+            const aumento = producaoBase * (pratica / 100);
+            const producaoTotal = producaoBase + aumento;
+            
+            // Mostrar resultado
+            textoProducao.innerHTML = `
+                <strong>Área:</strong> ${area} hectares<br>
+                <strong>Produção Base:</strong> ${producaoBase.toFixed(0)} sacas<br>
+                <strong>Aumento com Prática Sustentável:</strong> +${aumento.toFixed(0)} sacas<br>
+                <strong>Produção Total:</strong> <span class="destaque">${producaoTotal.toFixed(0)} sacas</span>
+            `;
+            
+            resultado.style.display = 'block';
+        });
+    }
+}
 
-    // Fatores de conversão baseados em estimativas de sustentabilidade para 2026
-    const LITROS_AGUA_POR_HECTARE = 12000;
-    const KG_CO2_POR_HECTARE = 450;
-
-    const calcularImpacto = () => {
-        const hectares = parseFloat(inputHectares.value);
-
-        // Validação do campo de entrada
-        if (isNaN(hectares) || hectares <= 0) {
-            alert('Por favor, insira um número válido de hectares.');
-            resultadoBox.classList.add('hidden');
-            return; // Interrompe a execução caso o valor seja inválido
-        }
-
-        // Cálculos de impacto ambiental
-        const aguaEconomizada = hectares * LITROS_AGUA_POR_HECTARE;
-        const co2Reduzido = hectares * KG_CO2_POR_HECTARE;
-
-        // Atualizando a interface com os valores formatados no padrão brasileiro
-        aguaSpan.textContent = aguaEconomizada.toLocaleString('pt-BR');
-        co2Span.textContent = co2Reduzido.toLocaleString('pt-BR');
-
-        // Mostra o container de resultados removendo a classe que o esconde
-        resultadoBox.classList.remove('hidden');
-    };
-
-    // Ouvintes de eventos (Listeners)
-    btnCalcular.addEventListener('click', calcularImpacto);
-
-    // Opcional: Permite calcular também ao apertar a tecla "Enter" dentro do input
-    inputHectares.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            calcularImpacto();
-        }
+// ==========================================
+// Smooth Scroll (Navegação Suave)
+// ==========================================
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                const headerHeight = document.querySelector('.header-principal').offsetHeight;
+                const targetPosition = targetElement.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
+}
 
+// ==========================================
+// Formulário de Contato
+// ==========================================
+function initFormContato() {
+    const formContato = document.querySelector('.form-contato');
+    
+    if (formContato) {
+        formContato.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Pegar valores
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            
+            // Validar
+            if (nome && email) {
+                alert(`Obrigado, ${nome}! Messagem enviada com sucesso.`);
+                formContato.reset();
+            }
+        });
+    }
+}
+
+// ==========================================
+// Efeito de Animação no Scroll
+// ==========================================
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('.header-principal');
+    
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
 });
